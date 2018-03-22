@@ -14,19 +14,19 @@ define(
 		var Debug;
 		Debug = {
 
-			__isDisabled: false,
-			__isScopeEnabled: {},
+			__is_disabled: false,
+			__is_scope_enabled: {},
 
 			/*
 			* Disables the Debug object.
 			* All logging is muted.
 			*/
 			__disable: function() {
-				this.__isDisabled = true;
+				this.__is_disabled = true;
 			},
 
-			isScopeEnabled: function(scope) {
-				return this.__isScopeEnabled[scope];
+			is_scope_enabled: function(scope) {
+				return this.__is_scope_enabled[scope];
 			},
 
 			/*
@@ -36,8 +36,8 @@ define(
 			* @param {string} scope			A unique identifier for a scope.
 			* @return null
 			*/
-			enableScope: function(scope) {
-				this.__isScopeEnabled[scope] = true;
+			enable_scope: function(scope) {
+				this.__is_scope_enabled[scope] = true;
 				return;
 			},
 
@@ -49,7 +49,7 @@ define(
 			* @return null
 			*/
 			__log: function( message, object ) {
-				if(this.__isDisabled) return;
+				if(this.__is_disabled) return;
 				console.log(message);
 				if ( object ) {
 					console.log(object);
@@ -84,7 +84,7 @@ define(
 
 			/*
 			*	Logs a message, if the specified scope has been enabled with
-			* Debug.enableScope. Prepends the scope name to the message.
+			* Debug.enable_scope. Prepends the scope name to the message.
 			*
 			* @param {string} scopes			A unique identifier for a scope.
 			* @param {string} message			A log message.
@@ -93,7 +93,7 @@ define(
 			*/
 			log: function( scope, message, object ) {
 				var self = this;
-				if ( !self.__isScopeEnabled[scope] ) return;
+				if ( !self.__is_scope_enabled[scope] ) return;
 				return self.__log( scope + ':: ' + message, object);
 			}
 		};
@@ -101,8 +101,8 @@ define(
 		// Enable WARN and FATAL_ERROR scopes
 		Debug.SCOPE_WARN = 'WARNING';
 		Debug.SCOPE_FATAL_ERROR = 'FATAL ERROR';
-		Debug.enableScope(Debug.SCOPE_WARN);
-		Debug.enableScope(Debug.SCOPE_FATAL_ERROR);
+		Debug.enable_scope(Debug.SCOPE_WARN);
+		Debug.enable_scope(Debug.SCOPE_FATAL_ERROR);
 
 		/* Uncomment this line to disable the Debug logger */
 //		Debug.__disable();

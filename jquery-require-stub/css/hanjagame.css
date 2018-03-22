@@ -1,0 +1,13 @@
+* {
+  vertical-align: top;
+}
+.card-container {
+  width: 200px;
+  display: inline-block;
+  margin-right: 20px;
+  vertical-align: top;
+}
+.def-container {
+  width: 200px;
+  display: inline-block;
+}
