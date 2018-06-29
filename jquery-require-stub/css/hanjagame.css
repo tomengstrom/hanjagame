@@ -1,5 +1,23 @@
+body {
+  background-color: #FAFAFA;
+}
+h1 {
+    font-family: Noto, sans-serif;
+    margin-left: 20px;
+}
+button {
+  background-color: #EAEAEA;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.loader {
+  margin-left: 20px;
+}
+
 * {
   vertical-align: top;
+  font-family: Noto, sans-serif;
 }
 .card-container {
   width: 200px;
@@ -10,4 +28,120 @@
 .def-container {
   width: 200px;
   display: inline-block;
+}
+
+
+
+
+/* Word Chain game */
+.input-container {
+  padding: 20px;
+  margin-top: 20px;
+  clear: both;
+}
+.input-container input {
+  font-size: 28px;
+}
+.input-container button {
+  font-size: 28px;
+}
+
+.bubble-container {
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.bubble {
+  padding: 10px;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 18px;
+  font-family: Noto, sans-serif;
+}
+
+.bubble p {
+  line-height: 1.2em;
+  padding: 0;
+  margin: 0;
+}
+
+.bubble .hangul {
+  font-weight: bold;
+  font-size: 28px;
+  display: block;
+}
+.bubble .english {
+  display: block;
+}
+.bubble .hanja {
+  display: block;
+  position: relative;
+}
+.bubble .hanja-character {
+  cursor: pointer;
+  font-size: 28px;
+}
+.bubble .hanja-error {
+  color: fuchsia;
+}
+.bubble .hanja-hover {
+  color: gold;
+}
+
+.hanja-character-definition {
+  position: absolute;
+  background-color: #FFD;
+  padding: 2px;
+  font-size: 16px;
+  top: 30px;
+  min-width: 200px;
+}
+
+.bubble_player .hanja-character-definition {
+  right: 0;
+}
+
+.bubble_opponent {
+  background-color: skyblue;
+  border: none;
+  float: left;
+}
+.bubble_player {
+  float: right;
+}
+.bubble_wrapper {
+  display: block;
+  clear: both;
+}
+
+
+.message-container {
+  font-family: Noto, sans-serif;
+  padding: 20px;
+  font-size: 12px;
+  color: gray;
+}
+.message-container p {
+  padding: 0;
+  margin: 0;
+  line-height: 1.1em;
+}
+
+/** Chat **/
+.word {
+  margin-left: 3px;
+}
+.object {
+  color: green;
+}
+.predicate {
+  color: red;
+}
+.subject {
+  color: orange;
+}
+.topic {
+  color: blue;
 }

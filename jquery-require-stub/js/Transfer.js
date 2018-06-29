@@ -1,10 +1,12 @@
 /*
-* DB connection and translation center
+* Talks with the database
 */
 define([
-  'Debug'
+  'Debug',
+  'jquery'
 ], function(
-  Debug
+  Debug,
+  $
 ) {
 
   Debug.enable_scope('Transfer');
@@ -17,6 +19,25 @@ define([
 
   Transfer.prototype = {
 
+    analyze: function(sentence_data) {
+      var self = this;
+      var extract_def = $.Deferred();
+
+      $.ajax({
+        url: '/analyze',
+        type: 'POST',
+        data: {
+          sentence: sentence_data
+        },
+        success: function(data) {
+          Debug.log('Transfer', 'analyze: success', data);
+          extract_def.resolve(data);
+        }
+      })
+
+      return extract_def;
+    },
+
     get_hanja_data: function() {
       var self = this;
 
@@ -26,7 +47,7 @@ define([
       $.ajax({
         url: '/hanja',
         success: function(data) {
-          Debug.log('DatabaseConnector', 'got hanja data', data);
+          Debug.log('Transfer', 'got hanja data', data);
           self.__deferreds['hanja'].resolve(data);
         }
       });
@@ -42,7 +63,7 @@ define([
       $.ajax({
         url: '/hanja_def',
         success: function(data) {
-          Debug.log('DatabaseConnector', 'got hanja definition data', data);
+          Debug.log('Transfer', 'got hanja definition data', data);
           self.__deferreds['hanja_def'].resolve(data);
         }
       });

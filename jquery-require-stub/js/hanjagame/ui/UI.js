@@ -10,7 +10,7 @@ define([
   Debug
 ) {
 
-  Debug.enable_scope()
+  Debug.enable_scope('HanjaGameUI');
 
   function UI(args) {
     var self = this;
@@ -75,7 +75,7 @@ define([
     __show_definition: function(hanja_word) {
       var self = this;
 
-      var defs = self.__engine.get_definitions(hanja_word);
+      var defs = self.__engine.get_hanja_handler().get_hanja_definitions(hanja_word);
       self.__definition_container.empty();
       $.each( defs, function(i, def) {
         var def_element = $('<span></span>');
@@ -87,20 +87,22 @@ define([
 
     refresh: function() {
       var self = this;
-      Debug.log('HanjaGameEngine', '__update_cards' );
+      Debug.log('HanjaGameUI', '__update_cards' );
+
+      var hanja_handler = self.__engine.get_hanja_handler();
 
       // Exit if no hanjas added
       if ( !self.__engine.has_hanjas() ) return;
 
       // Exit if no data
-      if (!self.__engine.get_word_data() ) return;
+      if (!hanja_handler.get_hanja_data() ) return;
 
       // Get the stored hanjas
       var hanjas = self.__engine.get_hanjas();
 
       // Get the appropriate word data
-      var word_data = self.__engine.get_word_data();
-      Debug.log('HanjaGameEngine', '__update_cards: added hanjas are', hanjas );
+      var word_data = hanja_handler.get_hanja_data();
+      Debug.log('HanjaGameUI', '__update_cards: added hanjas are', hanjas );
 
       // Empty all cards
       self.__card_container.empty();
