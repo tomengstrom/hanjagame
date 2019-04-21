@@ -1,2 +1,2 @@
 # hanjagame
-Korean language learning game prototype
+Korean language learning prototypes

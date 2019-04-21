@@ -24,6 +24,7 @@
     "jsonfile": "*",
     "koalanlp": "*",
     "open-korean-text-node": "*",
-    "sqlite3": "^4.0.1"
+    "sqlite3": "^4.0.1",
+    "vue-diagrams": "0.0.1-development"
   }
 }

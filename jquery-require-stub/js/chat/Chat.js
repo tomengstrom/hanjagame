@@ -1,6 +1,6 @@
 define([
   'jquery',
-  'Debug',
+  'utils/Debug',
   'Transfer'
 ], function(
   $,
@@ -75,16 +75,16 @@ define([
           word_el.addClass('word');
           word_el.html(word.surface);
           if(word.is_predicate) {
-            word_el.addClass('predicate');
+            word_el.addClass('word--predicate');
           }
           if(word.is_subject) {
-            word_el.addClass('subject');
+            word_el.addClass('word--subject');
           }
           if(word.is_topic) {
-            word_el.addClass('topic');
+            word_el.addClass('word--topic');
           }
           if(word.is_object) {
-            word_el.addClass('object');
+            word_el.addClass('word--object');
           }
           self.__output_container.append(word_el);
         } );

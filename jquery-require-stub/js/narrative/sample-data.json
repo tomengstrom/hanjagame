@@ -1,0 +1,110 @@
+characters: [
+
+  {
+    "id": "main",
+    "name": "Tom",
+    "image_prefix": "player"
+  },
+
+  {
+    "id": "waiter",
+    "name": "웨이터",
+    "image_prefix": "waiter"
+  }
+]
+
+
+scenes:
+[
+
+  {
+    id: "scene_1",
+  	image: exterior,
+    events: [
+      {
+        type: "dialogue",
+    		character: tom,
+    		content: "tasty restaurant?"
+    	},
+    ]
+    next: "scene_2"
+  },
+
+  {
+    id: "scene_2",
+    events: [
+      {
+        type: "dialogue",
+        character: tom,
+        content: "this should be good"
+      },
+    ]
+    next: "scene_3"
+  },
+
+  {
+    id: "scene_3",
+    image: interior,
+    events: [
+      {
+          type: "dialogue",
+          character: waiter,
+          content: "hello! please have a seat."
+      }
+    ],
+  },
+
+  {
+    id: "scene_4_nlp",
+    image: interior,
+    events: [
+      {
+        type: "nlpInput",
+        options: [
+          { "" }
+        ]
+      }
+    ]
+  },
+
+  {
+    id: "scene_4_multiselect",
+    image: interior,
+    events: [
+      {
+        type: "multiselect_input",
+        options: [
+          {  label: "hello", actions: [
+            {
+              type: "gotoScene",
+              target: "scene_4_reaction_happy",
+            }
+          ] },
+          {  label: "cool!", actions: [
+
+          ] },
+
+        ]
+      }
+    ]
+  },
+
+  {
+    id: "scene_4_reaction_grumpy",
+    events: [
+      {
+        type: "dialogue",
+        character: "main",
+        
+      }
+      {
+        type: "globalStateChange",
+        target: "energy",
+        change: -1
+      },
+    ]
+
+  }
+
+
+]

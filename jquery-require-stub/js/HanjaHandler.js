@@ -3,7 +3,7 @@
 */
 define([
   'jquery',
-  'Debug',
+  'utils/Debug',
   'Transfer'
 
 ], function(

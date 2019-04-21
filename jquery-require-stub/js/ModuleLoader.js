@@ -7,42 +7,26 @@
 */
 define([
   'jquery',
-  'Debug',
-
-  'WordChainGameEngine',
-  'HanjaGameEngine',
-
-  'Chat'
+  'utils/Debug'
 ], function(
   $,
-  Debug,
-
-  WordChainGame,
-  HanjaGame,
-  Chat
+  Debug
 ) {
 
   Debug.enable_scope('ModuleLoader');
 
   function ModuleLoader(args) {
     var self = this;
-    // var module = new HanjaGame({
-    //   container: $('.content')
-    // });
+    var container = $('.content');
+    var module_id = container.attr('data-module') || 'Dialogue';
 
-    var module = new WordChainGame({
-      container: $('.content')
+    require( [module_id], function(Module) {
+      var module = new Module({
+        container: container
+      });
+      module.start();
     });
 
-    // var module = new HanjaSaver({
-    //   container: $('.content')
-    // });
-
-    // var module = new Chat({
-    //   container: $('.content')
-    // });
-
-    module.start();
     return;
   };
   return ModuleLoader;

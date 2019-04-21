@@ -1,5 +1,5 @@
 define([
-  'Debug'
+  'utils/Debug'
 ], function(
   Debug
 ) {

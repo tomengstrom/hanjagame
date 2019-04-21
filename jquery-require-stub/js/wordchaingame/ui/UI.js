@@ -4,7 +4,7 @@
 */
 define([
   'jquery',
-  'Debug',
+  'utils/Debug',
   'WordChainConstants'
 ], function(
   $,

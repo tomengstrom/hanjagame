@@ -33,9 +33,10 @@ button {
 
 
 
+
 /* Word Chain game */
 .input-container {
-  padding: 20px;
+  padding: 20px 0px 20px 0px;
   margin-top: 20px;
   clear: both;
 }
@@ -133,15 +134,60 @@ button {
 .word {
   margin-left: 3px;
 }
-.object {
+.word--object {
   color: green;
 }
-.predicate {
+.word--predicate {
   color: red;
 }
-.subject {
+.word--subject {
   color: orange;
 }
-.topic {
+.word--topic {
   color: blue;
 }
+
+/** Dialogue **/
+.dialogue_output {
+  margin-top: 10px;
+}
+.dialogue_avatar {
+  border: 1px solid gray;
+  padding: 5px;
+  border-radius: 100px;
+  position: absolute;
+  left: 10px;
+}
+.dialogue_bubble {
+  padding-left: 75px;
+}
+.dialogue_bubble--avatar {
+  margin-top: 10px;
+}
+.dialogue_bubble p {
+  border: 1px solid skyblue;
+  padding: 5px;
+  border-radius: 100px;
+  display: inline-block;
+  margin: 0 0 5px 0px;
+}
+/** END Dialogue **/
+
+
+/* Magic */
+.magic_element {
+  transition: all 0.3s;
+  border-radius: 50px;
+  height: 100px;
+  width: 100px;
+  color: rgba(25,25,25,0.5);
+  display: flex;
+  font-size: 30px;
+  font-weight: bold;
+  float: left;
+  margin-right: 20px;
+}
+.magic_element p {
+  margin: auto;
+}
+/* END Magic */

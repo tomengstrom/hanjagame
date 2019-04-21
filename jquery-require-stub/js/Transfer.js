@@ -2,7 +2,7 @@
 * Talks with the database
 */
 define([
-  'Debug',
+  'utils/Debug',
   'jquery'
 ], function(
   Debug,
@@ -22,6 +22,7 @@ define([
     analyze: function(sentence_data) {
       var self = this;
       var extract_def = $.Deferred();
+      Debug.log( 'Transfer', 'analyze::', sentence_data );
 
       $.ajax({
         url: '/analyze',

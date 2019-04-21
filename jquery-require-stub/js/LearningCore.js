@@ -3,7 +3,7 @@
 * sent by game instances.
 */
 define([
-  'Debug'
+  'utils/Debug'
 ], function(
   Debug
 ) {

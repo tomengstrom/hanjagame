@@ -1,5 +1,5 @@
 var express = require('express');
-var sqlite3 = require('sqlite3');
+//var sqlite3 = require('sqlite3');
 
 var app = express();
 app.use(express.json());       // to support JSON-encoded bodies
@@ -7,18 +7,30 @@ app.use(express.urlencoded()); // to support URL-encoded bodies
 
 var pathUtils = require('path');
 
-// Directory to game
-var appDir = pathUtils.resolve( __dirname, "jquery-require-stub" );
+// Viewer location
+var viewerDir = pathUtils.resolve( __dirname, "jquery-require-stub" );
 
+// Builder location
+var vueBuilderDir = pathUtils.resolve( __dirname, "vue-builder" );
+var reactBuilderDir = pathUtils.resolve( __dirname, "react-builder" );
+
+
+var builderDir = reactBuilderDir;
 
 // Hanja dictionary database
-var db = new sqlite3.Database( 'hanja-dictionary/hanjadic.sqlite', sqlite3.OPEN_READONLY );
+//var db = new sqlite3.Database( 'hanja-dictionary/hanjadic.sqlite', sqlite3.OPEN_READONLY );
 
-app.use( express.static( appDir ) );
+// Set root directory
+app.use( express.static( builderDir ) );
+
+// Return the builder
+app.get( "/builder", function( req, res ) {
+  res.sendfile( pathUtils.resolve( builderDir, "index.html" ) );
+} );
 
 // Return the index
 app.get( "/", function( req, res ) {
-    res.sendfile( pathUtils.resolve( appDir, "index.html" ) );
+    res.sendfile( pathUtils.resolve( viewerDir, "index.html" ) );
 } );
 
 // Return entire hanja table as json
@@ -53,9 +65,9 @@ app.listen( 8000, function () {
 } );
 
 // Koala NLP stuff
-// var koalanlp = require('koalanlp'); // Import
-// var API = koalanlp.API; // Tagger/Parser Package 지정을 위한 목록
-// var POS = koalanlp.POS; // 품사 관련 utility
+var koalanlp = require('koalanlp'); // Import
+var API = koalanlp.API; // Tagger/Parser Package 지정을 위한 목록
+var POS = koalanlp.POS; // 품사 관련 utility
 
 var tagger_promise = null;
 
@@ -181,10 +193,10 @@ var parse_sentence = function(sentence) {
 };
 
 // Preload Koala NLP tagger
-// init_tagger().then(function() {
-//   console.log('tagger initialized');
-// });
-//parse_sentence('나 행복해요');
+init_tagger().then(function() {
+  console.log('tagger initialized');
+});
+parse_sentence('나 행복해요');
 
 
 // Init open Korean text node
@@ -192,14 +204,20 @@ var parse_sentence = function(sentence) {
 
 app.post( "/analyze", function( req, res ) {
   console.log('analyze: got request sentence: ' + req.body.sentence );
+
   // okt.tokenize(req.body.sentence).then( function( /*IntermediaryTokensObject*/ tokenized_result ) {
   //   var tokens_json = tokenized_result.toJSON();
   //   console.log('analyze: setting request json');
   //   res.json(tokens_json);
   // } );
 
-  // parse_sentence(req.body.sentence).then(function(result) {
-  //   console.log('analyze: setting request json');
-  //   res.json(result);
-  // });
+  if ( req.body.sentence.length < 1 ) {
+    res.json({});
+    return;
+  }
+
+  parse_sentence(req.body.sentence).then(function(result) {
+    console.log('analyze: setting request json');
+    res.json(result);
+  });
 } );

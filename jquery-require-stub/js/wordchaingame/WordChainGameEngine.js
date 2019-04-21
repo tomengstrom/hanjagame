@@ -3,11 +3,11 @@
 */
 define([
   'jquery',
-  'Debug',
+  'utils/Debug',
   'Session',
   'HanjaHandler',
-  'WordChainGameUI',
-  'WordChainConstants'
+  'worchaingame/ui/UI',
+  'worchaingame/WordChainConstants'
 ], function(
   $,
   Debug,

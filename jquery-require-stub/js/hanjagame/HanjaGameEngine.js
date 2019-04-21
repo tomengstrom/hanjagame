@@ -3,10 +3,10 @@
 */
 define([
   'jquery',
-  'Debug',
+  'utils/Debug',
   'HanjaHandler',
   'Session',
-  'HanjaGameUI'
+  'hanjagame/ui/UI'
 ], function(
   $,
   Debug,
