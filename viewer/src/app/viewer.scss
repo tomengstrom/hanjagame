@@ -1,0 +1,146 @@
+$bgcolor: rgb(245,245,244);
+
+$font-color: rgb(30,30,20);
+
+.clearfix {
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+
+body {
+    background-color: $bgcolor;
+    color: $font-color;
+    padding: 20px;
+    margin: 20px;
+    font-size: 20px;
+    font-family: arial;
+}
+p {
+    margin: 5px;
+}
+
+#app {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+.narrative {
+    padding-left: 500px;
+    height: 80vh;
+    .narrative_content {
+        max-height: 80vh;
+        overflow-y: scroll;
+    }
+}
+.narrative_controls {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    button {
+        height: 40px;
+        width: 40px;
+        font-size: 20px;
+        background-color: #9F88FF;
+        color: white;
+        border: 2px solid rgba(26,0,255,70);
+        border-radius: 10px;
+
+    }
+}
+.dialogue-line {
+    @extend .clearfix;
+
+    &[data-new-line=true] {
+        margin-top: 10px;
+    }
+}
+.dialogue-line_name {
+    float: left;
+    width: 100px;
+    text-align: right;
+    color: rgb(150,150,150);
+}
+.dialogue-line_content {
+    margin-left: 10px;
+    float: left;
+}
+
+.intermission-frame {
+    font-size: 20px;
+    padding: 30px;
+}
+
+[data-hidden=true] {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+.narrative_image {
+    border: 4px solid rgb(200,200,200);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 500px;
+    position: fixed;
+    top: 40px;
+    left: 20px;
+    height: 320px;
+
+
+    .narrative_image_character,
+    .narrative_image_background {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .narrative_image_character {
+        z-index: 11;
+    }
+    
+    .narrative_image_character--npc {}
+    .narrative_image_character--main {}
+
+    .narrative_image_background {
+        z-index: 10;
+    }
+
+}
+
+.dialogue-select {
+    margin: 50px 0px 30px;
+}
+
+.dialogue-select__menu {
+    position: relative !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+.dialogue-select__control {
+    display: none !important;
+}
+.dialogue-select__option {
+    display: inline-block !important;
+    width: auto !important;
+
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+
+    border: 2px solid rgb(150,150,150);
+    background-color: rgb(240,240,240);
+    &.dialogue-select__option--is-selected {
+        border-color: gold;
+        background-color: wheat;
+        color: $font-color;
+    }
+}

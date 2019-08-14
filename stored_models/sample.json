@@ -1,0 +1,675 @@
+{
+  
+    "mainCharacter": {
+        "id": "main",
+        "name": "톰",
+        "energy": 10
+    },
+
+    "images": {
+        "restaurant": {
+            "interior": "assets_restaurant-inside.png",
+            "exterior": "assets_restaurant-outside.png",
+            "counter": "assets_restaurant-counter.png"
+        },
+        "main": {
+            "standing":             "assets_Character-MC-Standing.png",
+            "standing-talking":     "assets_Character-MC-Standing-Talking.png",
+            "sweating":             "assets_Character-MC-Sweating.png",
+            "sweating-talking":     "assets_Character-MC-Sweating-Talking.png",
+            "sitting":              "assets_Character-MC-Sitting.png",
+            "sitting-talking":      "assets_Character-MC-Sitting-Talking.png"
+        },
+        "waiter": {
+            "standing":                 "assets_Character-Waiter-Standing.png",
+            "talking":                  "assets_Character-Waiter-Standing-Talking.png",
+            "holding-menu":             "assets_Character-Waiter-Holding-menu.png",
+            "talking-holding-menu":     "assets_Character-Waiter-Holding-menu-Talking.png", 
+            "behind-counter":           "assets_Character-Waiter-behind-counter.png",
+            "behind-counter-talking":   "assets_Character-Waiter-behind-counter-Talking"
+        }
+    },
+
+    "characters": [
+        {
+            "id": "waiter",
+            "name": "웨이터",
+            "initial_state": {
+                "mood": 5
+            }
+        }
+    ],
+
+    "failureStates": [
+        {
+            "state": {
+                "narrative": {
+                    "characters": {
+                        "waiter": {
+                            "mood": 0
+                        }
+                    }
+                }
+            },
+            "resultFrame": "020_waiter-lost-it"
+        }
+    ],
+
+    "frames": [
+
+        {
+            "id": "initial",
+            "type": "IntermissionFrame",
+            "data": {
+                "content": "맛집식당"
+            },
+            "nextFrame": "001_outside"
+        },
+
+        {
+            "id": "001_outside",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "background": {
+                        "restaurant": {
+                            "base": "exterior"
+                        }
+                    },
+                    "characters": {
+                        "main": {
+                            "base": "standing"
+                        }
+                    }    
+                },
+                "dialogue": [
+                    {
+                        "lines": ["여기 뭐지?", "여기가 좋은 것 같아!"],
+                        "character": "main"
+                    }
+                ] 
+            },
+            "nextFrame": "002_inside"
+        },
+
+        {
+            "id": "002_inside",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "background": {
+                        "restaurant": {
+                            "base": "interior"
+                        }
+                    },
+                    "characters": {
+                        "main": { "base": "standing" },
+                        "waiter": { "base": "standing"}
+                    }
+                },
+                "dialogue": [{
+                    "lines": ["안녕하세요!", "어서 오세요!", "앉으세요."],
+                    "character": "waiter"
+                }]
+            },
+            "nextFrame": "003_select-response"
+        },
+
+            {
+                "id": "003_select-response",
+                "type": "DialogueSelectFrame",
+                "data": {
+                    "prompt": "Respond politely",
+                    "options": [
+                        { "label": "아 그래!", "nextFrame": "004a_rude-response" },
+                        { "label": "감사감사!", "nextFrame": "004b_rude-response" },
+                        { "label": "고마워요!", "nextFrame": "004c_polite-response" },
+                        { "label": "응 오키!", "nextFrame": "004d_rude-response" }
+
+                    ]
+                }
+            },
+
+        {
+            "id": "004a_rude-response",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "characters": {
+                        "main": { "expression": "rude" },
+                        "waiter": { "expression": "surprised" }
+                    }
+                },
+                "dialogue": [{
+                    "lines": ["아 그래"],
+                    "character": "main"
+                }],
+                "actions": {
+                    "narrative": {
+                        "characters": {
+                            "waiter": {
+                                "mood": -1
+                            }
+                        }    
+                    }
+
+                }
+            },
+            "nextFrame": "005_sitting"
+        },
+
+        {
+            "id": "004b_rude-response",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "characters": {
+                        "main": { "expression": "rude" },
+                        "waiter": { "expression": "surprised" }
+                    }
+                },
+                "dialogue": [{
+                    "lines": ["감사감사!"],
+                    "character": "main"
+                }],
+                "actions": {
+                    "narrative": {
+                        "characters": {
+                            "waiter": {
+                                "mood": -1
+                            }
+                        }    
+                    }
+
+                }
+            },
+            "nextFrame": "005_sitting"
+        },
+
+        {
+            "id": "004c_polite-response",
+            "type": "DialogueFrame",
+            "data": {
+                "dialogue": [{
+                    "lines": ["고마워요!"],
+                    "character": "main"
+                }],
+                "actions": {
+                    "narrative": {
+                        "characters": {
+                            "waiter": {
+                                "mood": 1
+                            }
+                        }    
+                    }
+
+                }
+            },
+            "nextFrame": "005_sitting"
+        },
+
+        {
+            "id": "004d_rude-response",
+            "type": "DialogueFrame",
+            "data": {
+                "dialogue": [{
+                    "lines": ["응 오키!"],
+                    "character": "main"
+                }],
+                "actions": {
+                    "narrative": {
+                        "characters": {
+                            "waiter": {
+                                "mood": -1
+                            }
+                        }    
+                    }
+                }
+            },
+            "nextFrame": "005_sitting"
+        },
+
+        {
+            "id": "005_sitting",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "background": {
+                        "restaurant": {
+                            "base": "interior"
+                        }
+                    },
+                    "characters": {
+                        "main": { "base": "sitting" },
+                        "waiter": {
+                            "base": "holding-menu"
+                        } 
+                    }
+                },
+                "dialogue": {
+                    "lines": ["여기요 메뉴판 있어요"],
+                    "character": "waiter"
+                }
+            },
+            "nextFrame": "006_selecting-dish"
+        },
+
+            {
+                "id": "006_selecting-dish",
+                "type": "DialogueSelectFrame",
+                "data": {
+                    "scene": {
+                        "background": {
+                            "restaurant": {
+                                "base": "interior"
+                            }
+                        },
+                        "characters": {
+                            "main": { "base": "sitting", "holding": "menu" },
+                            "waiter": { "base": "" }
+                        }
+                    },
+                    "prompt": "Select a menu item",
+                    "options": [
+                        { 
+                            "label": "비빔밥", 
+                            "actions": {
+                                "narrative": {
+                                    "selected_menu": "비빔밥"
+                                }
+                            },
+                            "nextFrame": "007_selected"
+                        },
+                        { 
+                            "label": "김치찌개", 
+                            "actions": {
+                                "narrative": {
+                                    "selected_menu": "김치찌개"
+                                }
+                            },
+                            "nextFrame": "007_selected"
+                        }
+                    ]
+                }
+            },
+
+        {
+            "id": "007_selected",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "background": {
+                        "restaurant": {
+                            "base": "interior"
+                        }
+                    },
+                    "characters": {
+                        "main": { "base": "sitting", "holding": "menu" },
+                        "waiter": { "base": "standing" }
+                    }
+                },
+                "dialogue": [
+                    { "lines": ["$narrative.selected_menu 주세요"], "character": "main" },
+                    { "lines": ["감사합니다!"], "character": "waiter" }
+                ]
+            },
+            "nextFrame": "009_five-minutes-later"
+        },
+
+            {
+                "id": "009_five-minutes-later",
+                "type": "IntermissionFrame",
+                "data": {
+                    "content": "5 분 후"
+                },
+                "nextFrame": "010_food-arrives"
+            },
+
+        {
+            "id": "010_food-arrives",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "background": {
+                        "restaurant": {
+                            "base": "interior"
+                        }
+                    },
+                    "characters": {
+                        "main": { "base": "sitting", "holding": "phone"},
+                        "waiter": {"base": "holding-menu", "holding": "dish" }
+                    }
+                },
+                "dialogue": [{
+                    "lines": ["여기 $narrative.selected_menu 있어요.", "맛있게 드십시오"],
+                    "character": "waiter"
+                }]
+            },
+            "nextFrame": "012_eating"
+        },
+
+            {
+                "comment": "SKIPPED",
+                "id": "011_respond-politely",
+                "type": "WordSelectFrame",
+                
+                "data": {
+
+                    "scene": {
+                        "background": {
+                            "restaurant": {
+                                "base": "interior"
+                            }
+                        },
+                        "characters": {
+                            "waiter": { "base": "standing", "holding": null }
+                        }
+                    },
+                    "conversee": "waiter",
+                    "rounds": [
+                        {
+                            "prompt": "Say thank you politely.",
+                            "correct_responses": [
+                                "감사하니다", "고마워요", "고맙습니다"
+                            ],
+                            "incorrect_responses": [
+                                "감사감사", "응 좋아!", "좋아좋아"
+                            ],
+                            "correct_actions": {},
+                            "incorrect_actions": {
+                                "narrative": {
+                                    "characters": {
+                                        "waiter": {
+                                            "mood": -1
+                                        }
+                                    }
+                                }
+
+                            },
+                            "response": null
+                        }
+                    ]
+                    
+                },
+                "nextFrame": "012_eating"
+            },
+
+
+        {
+            "id": "012_eating",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "characters": {
+                        "main": { "base": "sitting" },
+                        "waiter": { "base": null }
+                    }
+                }
+            },
+            "nextFrame": "013_oh-no"
+        },
+
+        {
+            "id": "013_oh-no",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "characters": {
+                        "main": { "expression": "shocked" },
+                        "waiter": { "base": "" }
+                    }
+                },
+                "dialogue": [{
+                    "lines": ["헉!", "I forgot my wallet!", "아이고, 한국어로 설명해야 돼?"],
+                    "character": "main"
+                }]
+            },
+
+            "nextFrame": "014_flight-or-fight"
+        },
+
+            {
+                "id": "014_flight-or-fight",
+                "type": "DialogueSelectFrame",
+                "data": {
+                    "scene": {
+                        "characters": {
+                            "main": { "expression": "thinking" }
+                        }
+                    },
+                    "prompt": "What should I do?",
+                    "options": [
+                        { 
+                            "label": "Run away!", 
+                            "nextFrame": "015_running-away"
+                        },
+                        { 
+                            "label": "Try to explain!", 
+                            "nextFrame": "017_explaining"
+                        }
+                    ]
+                }
+                
+            },
+
+        {
+            "id": "015_running-away",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "characters": {
+                        "main": { "base": "standing" }
+                    }
+                },
+                "dialogue": [{
+                    "lines": ["I didn't eat yet so I'll just run!"],
+                    "character": "main"
+                }]
+            },
+            "nextFrame": "016_caught-by-cops"
+        },
+
+            {
+                "id": "016_caught-by-cops",
+                "type": "IntermissionFrame",
+                "data": {
+                    "content": "You ran out, but the owners called the cops and you were caught :(."
+                },
+                "nextFrame": "game_over"
+            },
+
+        {
+            "id": "017_explaining",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "background": {
+                        "restaurant": {
+                            "base": "counter"
+                        }
+                    },
+                    "characters": {
+                        "main": { "base": "sweating" },
+                        "waiter": { "base": "behind-counter" }
+                    }
+                },
+                "dialogue": [{
+                    "lines": ["저기요... 실례지만..."],
+                    "character": "main"
+                }]
+            },
+            "nextFrame": "018_explaining-select"
+        },
+
+            {
+                "id": "018_explaining-select",
+                "type": "WordSelectFrame",
+                
+                "data": {
+                    "rounds": [
+                        {
+                            "prompt": "Say 'I don't have money' or 'I forgot my wallet'.",
+                            "correct_responses": [
+                                "나는 돈이 없어요.", "나는 내 지갑을 잊어버렸어요."
+                            ],
+                            "incorrect_responses": [
+                                "시험이", "직장을", "지갑이", "있어요", "동이"
+                            ],
+                            "correct_actions": {
+                                "narrative": {
+                                    "characters": {
+                                        "waiter": {
+                                            "mood": -1
+                                        }
+                                    }
+                                }
+                            },
+                            "incorrect_actions": {
+                                "narrative": {
+                                    "characters": {
+                                        "waiter": {
+                                            "mood": -1
+                                        }
+                                    },
+                                    "mainCharacter": {
+                                        "energy": -1
+                                    }
+                                }
+                            },
+                            
+                            "responseDialogue": [
+                                { "lines": ["네??"], "character": "waiter" }
+                            ]
+                        },
+                        {
+                            "prompt": "Say 'But I can go home and get money'.",
+                            "correct_responses": [
+                                "하지만, 나는 집에 가서 돈을 좀 얻을 수 있어요."
+                            ],
+                            "incorrect_responses": [
+                                "그럼", "왠야하면", "오서", "너는", "동을"
+                            ],
+                            "correct_actions": {
+                                "narrative": {
+                                    "characters": {
+                                        "waiter": {
+                                            "mood": -1
+                                        }
+                                    }
+                                }
+                            },
+                            "incorrect_actions": {
+                                "narrative": {
+                                    "characters": {
+                                        "waiter": {
+                                            "mood": -1
+                                        }
+                                    },
+                                    "mainCharacter": {
+                                        "energy": -1
+                                    }
+                                }
+                            },
+                            "responseDialogue": [
+                                {
+                                    "lines": ["아 알겠어요", "그럼, 그렇게 하세요."],
+                                    "character": "waiter"
+                                }
+                            ]
+                        }
+                        
+                    ],
+                    
+                    "failureStates": [
+                        {
+                            "state": {
+                                "narrative": {
+                                    "mainCharacter": {
+                                        "energy": 0
+                                    }
+                                }
+                            },
+                            "resultFrame": "019_energy-depleted"
+                        }
+                    ]
+                       
+                },
+                "nextFrame": "21_thank-you"
+            },
+            
+
+            {
+                "id": "021_thank-you",
+                "type": "WordSelectFrame",
+                
+                "data": {
+                    "scene": {
+                        "characters": {
+                            "main": {
+                                "base": "sweating",
+                                "talking": {
+                                    "expression": "happy"
+                                }
+                            },
+                            "waiter": "behind-counter"
+                        }
+                    },
+                    "rounds": [
+                        {
+                            "prompt": "Say thank you politely.",
+                            "correct_responses": [
+                                "감사하니다!", "고마워요", "고맙습니다"
+                            ],
+                            "incorrect_responses": [
+                                "감사감사", "응 좋아!", "좋아좋아"
+                            ],
+                            "responseDialogue": [ { "lines": ["관찮아요!"], "character": "waiter"} ]
+                        }
+                    ]
+
+                },
+                "nextFrame": "022_success"
+            },
+
+        {
+            "id": "022_success",
+            "type": "DialogueFrame",
+            "data": {
+                "scene": {
+                    "background": {
+                        "restaurant": {
+                            "base": "interior"
+                        }
+                    },
+                    "characters": {
+                        "main": { "base": "sitting" },
+                        "waiter": { "base": "" }
+                    }
+                },
+                "dialogue": [{
+                    "lines": ["Whew!", "Wow, this is delicious!"],
+                    "character": "main",
+                    "actions": {
+                        "narrative": {
+                            "mainCharacter": {
+                                "energy": 5
+                            }
+                        }
+                    }
+                }]
+            },
+            "nextFrame": "023_win"
+        },
+
+        {
+            "id": "023_win",
+            "type": "IntermissionFrame",
+            "data": {
+                "content": "You successfully had some food :)"
+            },
+            "ending": true
+        }
+
+    ]
+
+}
