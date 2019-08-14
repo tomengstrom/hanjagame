@@ -23,8 +23,6 @@
     "body-parser": "*",
     "express": "*",
     "jsonfile": "*",
-    "koalanlp": "*",
-    "open-korean-text-node": "*",
     "sqlite3": "^4.0.1"
   }
 }
