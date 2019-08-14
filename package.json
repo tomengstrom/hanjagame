@@ -23,6 +23,7 @@
     "body-parser": "*",
     "express": "*",
     "jsonfile": "*",
+    "koalanlp": "*",
     "sqlite3": "^4.0.1"
   }
 }
